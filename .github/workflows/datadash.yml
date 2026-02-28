@@ -16,9 +16,10 @@ jobs:
         with:
           node-version: 18
 
-      - name: Install dependencies
+      - name: Install Playwright
         run: |
-          npm install
+          npm init -y
+          npm install playwright
           npx playwright install --with-deps
 
       - name: Run script 23ds3000088@ds.study.iitm.ac.in
