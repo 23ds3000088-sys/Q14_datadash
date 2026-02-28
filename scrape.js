@@ -6,20 +6,25 @@ async function run() {
 
   let totalSum = 0;
 
-  // Seeds 9 to 18
-  for (let seed = 9; seed <= 18; seed++) {
+  const urls = [
+    "https://sanand0.github.io/tdsdata/js_table/?seed=9",
+    "https://sanand0.github.io/tdsdata/js_table/?seed=10",
+    "https://sanand0.github.io/tdsdata/js_table/?seed=11",
+    "https://sanand0.github.io/tdsdata/js_table/?seed=12",
+    "https://sanand0.github.io/tdsdata/js_table/?seed=13",
+    "https://sanand0.github.io/tdsdata/js_table/?seed=14",
+    "https://sanand0.github.io/tdsdata/js_table/?seed=15",
+    "https://sanand0.github.io/tdsdata/js_table/?seed=16",
+    "https://sanand0.github.io/tdsdata/js_table/?seed=17",
+    "https://sanand0.github.io/tdsdata/js_table/?seed=18"
+  ];
 
-    // 👉 Replace with the real URL pattern
-    const url = "https://sanand0.github.io/tdsdata/js_table/?seed=${seed}";
-
+  for (const url of urls) {
     console.log("Visiting:", url);
 
     await page.goto(url);
-
-    // Wait for table to load (important)
     await page.waitForSelector("table");
 
-    // Extract numbers from all tables
     const numbers = await page.$$eval("table td", cells =>
       cells
         .map(cell => parseFloat(cell.innerText))
@@ -28,14 +33,11 @@ async function run() {
 
     const pageSum = numbers.reduce((a, b) => a + b, 0);
 
-    console.log(`Seed ${seed} sum:`, pageSum);
-
+    console.log("Page sum:", pageSum);
     totalSum += pageSum;
   }
 
-  console.log("=================================");
   console.log("FINAL TOTAL:", totalSum);
-  console.log("=================================");
 
   await browser.close();
 }
